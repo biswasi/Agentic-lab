@@ -1,6 +1,3 @@
-# Importing necessary modules from the chromadb package:
-# chromadb is used to interact with the Chroma DB database,
-# embedding_functions is used to define the embedding model
 import chromadb
 from chromadb.utils import embedding_functions
 
@@ -10,14 +7,10 @@ ef = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"
 )
 
-# Creating an instance of ChromaClient to establish a connection with the Chroma database
 client = chromadb.Client()
-
-# Defining a name for the collection where data will be stored or accessed
 # This collection is likely used to group related records, such as employee data
 collection_name = "employee_collection"
 
-# Defining a function named 'main'
 # This function is used to encapsulate the main operations for creating collections,
 # generating embeddings, and performing similarity search
 def main():
@@ -25,7 +18,6 @@ def main():
         # Creating a collection using the ChromaClient instance
         # The 'create_collection' method creates a new collection with the specified configuration
         collection = client.create_collection(
-            # Specifying the name of the collection to be created
             name=collection_name,
             # Adding metadata to describe the collection
             metadata={"description": "A collection for storing employee data"},
@@ -192,7 +184,6 @@ def main():
             },
         ]
 
-        # Create comprehensive text documents for each employee
         # These documents will be used for similarity search based on skills, roles, and experience
         employee_documents = []
         for employee in employees:
@@ -204,7 +195,6 @@ def main():
         # Adding data to the collection in the Chroma database
         # The 'add' method inserts or updates data into the specified collection
         collection.add(
-            # Extracting employee IDs to be used as unique identifiers for each record
             ids=[employee["id"] for employee in employees],
             # Using the comprehensive text documents we created
             documents=employee_documents,
