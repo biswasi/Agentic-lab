@@ -1,18 +1,13 @@
 import chromadb
 from chromadb.utils import embedding_functions
 
-# Define the embedding function using SentenceTransformers
-# This function will be used to generate embeddings (vector representations) for the data
 ef = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"
 )
 
 client = chromadb.Client()
-# This collection is likely used to group related records, such as employee data
 collection_name = "employee_collection"
 
-# This function is used to encapsulate the main operations for creating collections,
-# generating embeddings, and performing similarity search
 def main():
     try:
         # Creating a collection using the ChromaClient instance
@@ -21,16 +16,12 @@ def main():
             name=collection_name,
             # Adding metadata to describe the collection
             metadata={"description": "A collection for storing employee data"},
-            # Configuring the collection with cosine distance and embedding function
             configuration={
                 "hnsw": {"space": "cosine"},
                 "embedding_function": ef
             }
         )
         print(f"Collection created: {collection.name}")
-
-        # Defining a list of employee dictionaries
-        # Each dictionary represents an individual employee with comprehensive information
         employees = [
             {
                 "id": "employee_1",
@@ -192,8 +183,6 @@ def main():
             document += f"Employment type: {employee['employment_type']}."
             employee_documents.append(document)
         
-        # Adding data to the collection in the Chroma database
-        # The 'add' method inserts or updates data into the specified collection
         collection.add(
             ids=[employee["id"] for employee in employees],
             # Using the comprehensive text documents we created
@@ -210,7 +199,6 @@ def main():
         )
 
         # Retrieving all items from the specified collection
-        # The 'get' method fetches all records stored in the collection
         all_items = collection.get()
         # Logging the retrieved items to the console for inspection or debugging
         print("Collection contents:")
