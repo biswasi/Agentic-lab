@@ -7,7 +7,6 @@ ef = embedding_functions.SentenceTransformerEmbeddingFunction(
 client = chromadb.Client()
 # Define the name for the collection to be created or retrieved
 collection_name = "book_collection"
-# Define the main function to interact with the Chroma DB
 def main():
     try:
         collection = client.create_collection(
@@ -159,8 +158,7 @@ def main():
                 print(f"  {i+1}. {metadata['title']} by {metadata['author']} - Distance: {distance:.4f}")
             
             print("\n=== Metadata Filtering ===")
-            
-            # Filter by genre
+        
             print("\n2. Finding Fantasy and Science Fiction books:")
             results = collection.get(
                 where={"genre": {"$in": ["Fantasy", "Science Fiction"]}}
