@@ -13,7 +13,6 @@ from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_community.agent_toolkits import create_sql_agent
 import argparse
 
-# Set up argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument("--prompt", type=str, help="The prompt to send to the SQL agent")
 args = parser.parse_args()
@@ -41,7 +40,7 @@ model = ModelInference(
 
 llm = WatsonxLLM(model = model)
 mysql_username = 'root'  # Replace with your server connect information
-mysql_password = 'PFxRAl3wauaIDDPeQILgvdSd' # Replace with your server connect information
+mysql_password = 'PFxRAl3wauaIDDPeQILgvdSd'
 mysql_host = '172.21.9.235' # Replace with your server connect information
 mysql_port = '3306' # Replace with your server connect information
 database_name = 'Chinook'
